@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geo Bog - Estadísticas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🗺️ Geo Bog - Dashboard de Estadísticas</h1>
+            <p>Sistema de visualización de datos geográficos y estadísticas</p>
+            <div style="margin-top: 1rem;">
+                <a href="/mapa" style="background: white; color: #667eea; padding: 10px 20px; 
+                   text-decoration: none; border-radius: 5px; font-weight: bold;">
+                    📍 Ver Mapa Interactivo
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="stats-section">
+            <h2>Resumen de Estadísticas</h2>
+            <div id="statistics-summary" class="stats-grid">
+                <div class="stat-card">
+                    <h3>Cargando...</h3>
+                    <p>Por favor espere</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="charts-section">
+            <h2>Visualizaciones</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Gráfico de Estadísticas</h3>
+                    <div id="statistics-chart"></div>
+                </div>
+                <div class="chart-container">
+                    <h3>Distribución de Datos</h3>
+                    <div id="distribution-chart"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="data-section">
+            <h2>Datos Geográficos</h2>
+            <div id="geographic-data">
+                <p>Cargando datos...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Geo Bog Project - Sistema ETL</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+# Core ETL
+pandas==2.1.4
+numpy==1.26.2
+
+# Database
+sqlite3  # Built-in with Python, no need to install
+
+# Web Framework
+flask==3.0.0
+flask-cors==4.0.0
+
+# Data Visualization
+plotly==5.18.0
+matplotlib==3.8.2
+seaborn==0.13.0
+folium==0.15.1
+
+# Data Processing
+openpyxl==3.1.2  # For Excel files
+python-dateutil==2.8.2
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0
+
+# Development
+jupyter==1.0.0
+ipykernel==6.27.1
+
+# Logging
+colorlog==6.8.0

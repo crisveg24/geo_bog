@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Interactivo - Animales con Microchip Bogotá</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .map-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .map-section {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .map-frame {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .info-box {
+            background: #f0f8ff;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🗺️ Mapa Interactivo - Animales con Microchip en Bogotá</h1>
+            <p>Visualización geográfica de animales identificados por localidad</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="nav-buttons">
+            <a href="/" class="btn">← Volver al Dashboard</a>
+            <button onclick="location.reload()" class="btn btn-secondary">🔄 Recargar Mapas</button>
+        </div>
+
+        <div class="map-container">
+            <!-- Mapa Principal -->
+            <div class="map-section">
+                <h2>📍 Mapa por Localidades</h2>
+                <div class="info-box">
+                    <strong>Instrucciones:</strong> Haz clic en los marcadores circulares para ver información detallada de cada localidad. 
+                    Los colores indican la cantidad de animales:
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong style="color: red;">Rojo:</strong> Más de 2000 animales</li>
+                        <li><strong style="color: orange;">Naranja:</strong> Entre 1000 y 2000 animales</li>
+                        <li><strong style="color: blue;">Azul:</strong> Entre 500 y 1000 animales</li>
+                        <li><strong style="color: green;">Verde:</strong> Menos de 500 animales</li>
+                    </ul>
+                </div>
+                <iframe 
+                    src="{{ url_for('static', filename='mapa_animales_bogota.html') }}"
+                    class="map-frame"
+                    title="Mapa de Animales por Localidad"
+                ></iframe>
+            </div>
+
+            <!-- Mapa de Calor -->
+            <div class="map-section">
+                <h2>🔥 Mapa de Calor (Densidad)</h2>
+                <div class="info-box">
+                    <strong>Acerca del mapa de calor:</strong> Este mapa muestra la densidad de animales con microchip 
+                    en Bogotá. Las zonas rojas indican mayor concentración, mientras que las zonas azules muestran menor concentración.
+                </div>
+                <iframe 
+                    src="{{ url_for('static', filename='mapa_calor_animales_bogota.html') }}"
+                    class="map-frame"
+                    title="Mapa de Calor de Animales"
+                ></iframe>
+            </div>
+
+            <!-- Estadísticas Rápidas -->
+            <div class="map-section">
+                <h2>📊 Estadísticas por Localidad</h2>
+                <div id="stats-table">
+                    <p>Cargando estadísticas...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Geo Bog Project - Análisis de Animales con Microchip en Bogotá</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cargar estadísticas por localidad
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/estadisticas-localidad');
+                const result = await response.json();
+                
+                if (result.success && result.data.length > 0) {
+                    displayStatsTable(result.data);
+                } else {
+                    document.getElementById('stats-table').innerHTML = 
+                        '<p style="color: orange;">⚠️ No hay estadísticas disponibles. Ejecuta primero el ETL.</p>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('stats-table').innerHTML = 
+                    '<p style="color: red;">❌ Error al cargar estadísticas</p>';
+            }
+        }
+
+        function displayStatsTable(data) {
+            const table = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Localidad</th>
+                            <th>Total Animales</th>
+                            <th>Caninos</th>
+                            <th>Felinos</th>
+                            <th>Peligrosos</th>
+                            <th>Especie Predominante</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(item => `
+                            <tr>
+                                <td><strong>${item.localidad}</strong></td>
+                                <td>${item.total_animales.toLocaleString()}</td>
+                                <td>🐕 ${item.total_caninos.toLocaleString()}</td>
+                                <td>🐱 ${item.total_felinos.toLocaleString()}</td>
+                                <td style="color: ${item.total_peligrosos > 0 ? 'red' : 'green'}">
+                                    ${item.total_peligrosos > 0 ? '⚠️ ' : '✓ '}${item.total_peligrosos}
+                                </td>
+                                <td>${item.especie_predominante}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            document.getElementById('stats-table').innerHTML = table;
+        }
+
+        // Cargar al inicio
+        document.addEventListener('DOMContentLoaded', loadStats);
+    </script>
+</body>
+</html>

@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_24971873d44e6b23aa7bc4474492074e {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+</head>
+<body>
+    
+    
+    <div style="position: fixed; bottom: 50px; left: 50px; width: 220px; 
+    background-color: white; border: 2px solid grey; z-index: 9999; 
+    font-size: 14px; padding: 10px; border-radius: 5px;">
+        <h4 style="margin: 0 0 10px 0;">🗺️ Leyenda</h4>
+        <p style="margin: 5px 0;"><span style="color: red;">●</span> &gt; 2000 animales</p>
+        <p style="margin: 5px 0;"><span style="color: orange;">●</span> 1000 - 2000 animales</p>
+        <p style="margin: 5px 0;"><span style="color: blue;">●</span> 500 - 1000 animales</p>
+        <p style="margin: 5px 0;"><span style="color: green;">●</span> &lt; 500 animales</p>
+    </div>
+    
+    
+            <div class="folium-map" id="map_24971873d44e6b23aa7bc4474492074e" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_24971873d44e6b23aa7bc4474492074e = L.map(
+                "map_24971873d44e6b23aa7bc4474492074e",
+                {
+                    center: [4.6097, -74.0817],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_6d82565c491a2ace6f6aaef2b74a6473 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_6d82565c491a2ace6f6aaef2b74a6473.addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var tile_layer_e317bdb617c3b25114162787ff1332ed = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e317bdb617c3b25114162787ff1332ed.addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var circle_marker_823c702e7b80a3619b0f8f9134bf4172 = L.circleMarker(
+                [4.6186, -74.1878],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 25.562584726615455, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_4ad3dc0940ec7347a024d72df9f94ea0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ac19b0013939669266b5034a02940ea1 = $(`<div id="html_ac19b0013939669266b5034a02940ea1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">BOSA</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 1,152<br>             <b>🐕 Caninos:</b> 848<br>             <b>🐱 Felinos:</b> 302<br>             <b>⚠️ Peligrosos:</b> 83<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_4ad3dc0940ec7347a024d72df9f94ea0.setContent(html_ac19b0013939669266b5034a02940ea1);
+            
+        
+
+        circle_marker_823c702e7b80a3619b0f8f9134bf4172.bindPopup(popup_4ad3dc0940ec7347a024d72df9f94ea0)
+        ;
+
+        
+    
+    
+            var marker_b395feed14e9bd6e18a67a6181bbc9a1 = L.marker(
+                [4.6186, -74.1878],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_98c3f07d0a8a8ec73b0c72abf4b5a9ac = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                BOSA\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_b395feed14e9bd6e18a67a6181bbc9a1.setIcon(div_icon_98c3f07d0a8a8ec73b0c72abf4b5a9ac);
+            
+    
+            var circle_marker_b5cada971a8c4785b237fee22a99134a = L.circleMarker(
+                [4.6308, -74.0658],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.511070944419341, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_11d9496fe333134956f5998adb78632b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_684b0660bb50d3b056f8c2e45063fc6c = $(`<div id="html_684b0660bb50d3b056f8c2e45063fc6c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">CHAPINERO</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 263<br>             <b>🐕 Caninos:</b> 209<br>             <b>🐱 Felinos:</b> 54<br>             <b>⚠️ Peligrosos:</b> 7<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_11d9496fe333134956f5998adb78632b.setContent(html_684b0660bb50d3b056f8c2e45063fc6c);
+            
+        
+
+        circle_marker_b5cada971a8c4785b237fee22a99134a.bindPopup(popup_11d9496fe333134956f5998adb78632b)
+        ;
+
+        
+    
+    
+            var marker_f45161d5113e13ea4e4f612fc2ef22c1 = L.marker(
+                [4.6308, -74.0658],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_755130ab62d47bf24fc1e49766bdc686 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                CHAPINERO\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_f45161d5113e13ea4e4f612fc2ef22c1.setIcon(div_icon_755130ab62d47bf24fc1e49766bdc686);
+            
+    
+            var circle_marker_1a965779be5366d0cc23e9d1dd026540 = L.circleMarker(
+                [4.7011, -74.1122],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 40.0, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_6f579eeccfc59296ea9b4bb5668abe27 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_14f2ffc38788ae850d0c6af66fb6fe62 = $(`<div id="html_14f2ffc38788ae850d0c6af66fb6fe62" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">ENGATIVA</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 2,217<br>             <b>🐕 Caninos:</b> 1,746<br>             <b>🐱 Felinos:</b> 466<br>             <b>⚠️ Peligrosos:</b> 113<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_6f579eeccfc59296ea9b4bb5668abe27.setContent(html_14f2ffc38788ae850d0c6af66fb6fe62);
+            
+        
+
+        circle_marker_1a965779be5366d0cc23e9d1dd026540.bindPopup(popup_6f579eeccfc59296ea9b4bb5668abe27)
+        ;
+
+        
+    
+    
+            var marker_f92798d632419958a55553f7475c05c5 = L.marker(
+                [4.7011, -74.1122],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_10d53b6413a3c7371b1833a2ed46bd88 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                ENGATIVA\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_f92798d632419958a55553f7475c05c5.setIcon(div_icon_10d53b6413a3c7371b1833a2ed46bd88);
+            
+    
+            var circle_marker_64800d6b0f298bdf7e8f8fcc9a26bf3c = L.circleMarker(
+                [4.6728, -74.1444],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.062810664256666, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_e16bd447f9110d456f1323ab16448e62 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_83b20253d9abdb1ca198b0ef104bc10b = $(`<div id="html_83b20253d9abdb1ca198b0ef104bc10b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">FONTIBON</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 525<br>             <b>🐕 Caninos:</b> 458<br>             <b>🐱 Felinos:</b> 66<br>             <b>⚠️ Peligrosos:</b> 51<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_e16bd447f9110d456f1323ab16448e62.setContent(html_83b20253d9abdb1ca198b0ef104bc10b);
+            
+        
+
+        circle_marker_64800d6b0f298bdf7e8f8fcc9a26bf3c.bindPopup(popup_e16bd447f9110d456f1323ab16448e62)
+        ;
+
+        
+    
+    
+            var marker_a193c9222de6be9de73a266facbb4c04 = L.marker(
+                [4.6728, -74.1444],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_1af560cc5dddff7896ca860a1dd25284 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                FONTIBON\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_a193c9222de6be9de73a266facbb4c04.setIcon(div_icon_1af560cc5dddff7896ca860a1dd25284);
+            
+    
+            var circle_marker_1e7056116e65f77f426def1b0e9a2c24 = L.circleMarker(
+                [4.6281, -74.155],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 38.9426118391324, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_ccd2232b0bc581100fd025b528e65e56 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bce445ab564c684ec2800f268f15e080 = $(`<div id="html_bce445ab564c684ec2800f268f15e080" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">KENNEDY</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 2,139<br>             <b>🐕 Caninos:</b> 1,580<br>             <b>🐱 Felinos:</b> 554<br>             <b>⚠️ Peligrosos:</b> 167<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_ccd2232b0bc581100fd025b528e65e56.setContent(html_bce445ab564c684ec2800f268f15e080);
+            
+        
+
+        circle_marker_1e7056116e65f77f426def1b0e9a2c24.bindPopup(popup_ccd2232b0bc581100fd025b528e65e56)
+        ;
+
+        
+    
+    
+            var marker_586c666f724d2a568413c84aac99c377 = L.marker(
+                [4.6281, -74.155],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_b9e5445443de670628f457275b9ea644 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                KENNEDY\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_586c666f724d2a568413c84aac99c377.setIcon(div_icon_b9e5445443de670628f457275b9ea644);
+            
+    
+            var circle_marker_d2e7f75a4a4ed4a22c39e967726b887a = L.circleMarker(
+                [4.5964, -74.0739],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.650700406687754, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_9a618c369ad5530eb7237e4985ee0fd3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_25d5804fa4465932322ef012d61c3d4b = $(`<div id="html_25d5804fa4465932322ef012d61c3d4b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">LA CANDELARIA</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 52<br>             <b>🐕 Caninos:</b> 36<br>             <b>🐱 Felinos:</b> 16<br>             <b>⚠️ Peligrosos:</b> 2<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_9a618c369ad5530eb7237e4985ee0fd3.setContent(html_25d5804fa4465932322ef012d61c3d4b);
+            
+        
+
+        circle_marker_d2e7f75a4a4ed4a22c39e967726b887a.bindPopup(popup_9a618c369ad5530eb7237e4985ee0fd3)
+        ;
+
+        
+    
+    
+            var marker_46d9013631f3943b7d5d6afad5c5e854 = L.marker(
+                [4.5964, -74.0739],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_1cc09910e608a8bda7d90de17caafbb4 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                LA CANDELARIA\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_46d9013631f3943b7d5d6afad5c5e854.setIcon(div_icon_1cc09910e608a8bda7d90de17caafbb4);
+            
+    
+            var circle_marker_1d5837a10afecf3b1f128e36675d1a53 = L.circleMarker(
+                [4.6117, -74.0939],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.436963398102124, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_156fded89a119dec86e39ed1ea41e1f2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1022dd60205bedcf20dbd7ec3fc58968 = $(`<div id="html_1022dd60205bedcf20dbd7ec3fc58968" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">LOS MARTIRES</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 110<br>             <b>🐕 Caninos:</b> 99<br>             <b>🐱 Felinos:</b> 10<br>             <b>⚠️ Peligrosos:</b> 11<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_156fded89a119dec86e39ed1ea41e1f2.setContent(html_1022dd60205bedcf20dbd7ec3fc58968);
+            
+        
+
+        circle_marker_1d5837a10afecf3b1f128e36675d1a53.bindPopup(popup_156fded89a119dec86e39ed1ea41e1f2)
+        ;
+
+        
+    
+    
+            var marker_e11d2f5be615ca8dff3201bce18d0289 = L.marker(
+                [4.6117, -74.0939],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_06aa7512386e7ceeca8a83e96b124c0b = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                LOS MARTIRES\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_e11d2f5be615ca8dff3201bce18d0289.setIcon(div_icon_06aa7512386e7ceeca8a83e96b124c0b);
+            
+    
+            var circle_marker_c0e7aec3b2e5ffa46730c9a285050df5 = L.circleMarker(
+                [4.5653, -74.0825],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.763669227293267, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_182c5ebf3d036748edf1ade2dfcdf59a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1977c1ad6876a60cee03da7cb47a4388 = $(`<div id="html_1977c1ad6876a60cee03da7cb47a4388" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">SAN CRISTOBAL</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 798<br>             <b>🐕 Caninos:</b> 596<br>             <b>🐱 Felinos:</b> 200<br>             <b>⚠️ Peligrosos:</b> 53<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_182c5ebf3d036748edf1ade2dfcdf59a.setContent(html_1977c1ad6876a60cee03da7cb47a4388);
+            
+        
+
+        circle_marker_c0e7aec3b2e5ffa46730c9a285050df5.bindPopup(popup_182c5ebf3d036748edf1ade2dfcdf59a)
+        ;
+
+        
+    
+    
+            var marker_128ac68aff328e570fe384721f59379e = L.marker(
+                [4.5653, -74.0825],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_53b933cbdd5369e9cad0962aa6f03927 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                SAN CRISTOBAL\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_128ac68aff328e570fe384721f59379e.setIcon(div_icon_53b933cbdd5369e9cad0962aa6f03927);
+            
+    
+            var circle_marker_b75e53650b265581b99b6455b576f475 = L.circleMarker(
+                [4.6053, -74.0755],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.467239042024401, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_e5b7ae486a550c94592369b17c7f5600 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e219ab716a99a8331a3e969a86b8d59c = $(`<div id="html_e219ab716a99a8331a3e969a86b8d59c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">SANTA FE</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 186<br>             <b>🐕 Caninos:</b> 141<br>             <b>🐱 Felinos:</b> 45<br>             <b>⚠️ Peligrosos:</b> 20<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_e5b7ae486a550c94592369b17c7f5600.setContent(html_e219ab716a99a8331a3e969a86b8d59c);
+            
+        
+
+        circle_marker_b75e53650b265581b99b6455b576f475.bindPopup(popup_e5b7ae486a550c94592369b17c7f5600)
+        ;
+
+        
+    
+    
+            var marker_f58b60090e071c398156afdd07e86f73 = L.marker(
+                [4.6053, -74.0755],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_9b28548a5ae3c31b3953261a9d157938 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                SANTA FE\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_f58b60090e071c398156afdd07e86f73.setIcon(div_icon_9b28548a5ae3c31b3953261a9d157938);
+            
+    
+            var circle_marker_533f7cd2c45e851c4846268717b1c739 = L.circleMarker(
+                [4.7565, -74.0826],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 31.47311342069589, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_17d2f9c8ddfd5381740f7d88254fb930 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_83b9648019085a68d8afa8b7f9678582 = $(`<div id="html_83b9648019085a68d8afa8b7f9678582" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">SUBA</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 1,588<br>             <b>🐕 Caninos:</b> 1,223<br>             <b>🐱 Felinos:</b> 365<br>             <b>⚠️ Peligrosos:</b> 102<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_17d2f9c8ddfd5381740f7d88254fb930.setContent(html_83b9648019085a68d8afa8b7f9678582);
+            
+        
+
+        circle_marker_533f7cd2c45e851c4846268717b1c739.bindPopup(popup_17d2f9c8ddfd5381740f7d88254fb930)
+        ;
+
+        
+    
+    
+            var marker_ebc526af8bb1628bf588808a298bdfe2 = L.marker(
+                [4.7565, -74.0826],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_636a994fb2d72aa27a4202003c05b4c3 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                SUBA\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_ebc526af8bb1628bf588808a298bdfe2.setIcon(div_icon_636a994fb2d72aa27a4202003c05b4c3);
+            
+    
+            var circle_marker_9cba5a33fb54d25c0a891f7bee85d1c6 = L.circleMarker(
+                [4.2417, -74.2481],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.0, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_cc38188ffc64028e2d07cf6e4ed4d976 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9e42ea90c7ed2907632effb22a7f1819 = $(`<div id="html_9e42ea90c7ed2907632effb22a7f1819" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">SUMAPAZ</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 4<br>             <b>🐕 Caninos:</b> 3<br>             <b>🐱 Felinos:</b> 1<br>             <b>⚠️ Peligrosos:</b> 0<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_cc38188ffc64028e2d07cf6e4ed4d976.setContent(html_9e42ea90c7ed2907632effb22a7f1819);
+            
+        
+
+        circle_marker_9cba5a33fb54d25c0a891f7bee85d1c6.bindPopup(popup_cc38188ffc64028e2d07cf6e4ed4d976)
+        ;
+
+        
+    
+    
+            var marker_45e24de27be651a834fa25ae3badea75 = L.marker(
+                [4.2417, -74.2481],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_22241321d5156abee65fd582c5146fdd = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                SUMAPAZ\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_45e24de27be651a834fa25ae3badea75.setIcon(div_icon_22241321d5156abee65fd582c5146fdd);
+            
+    
+            var circle_marker_4014f58c78cd315a1bb8ca11b4f126ee = L.circleMarker(
+                [4.6417, -74.0875],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.901039313149571, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_da9ee69272f082f43c2431fa588a7e89 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f3287116775c300e867fffd30b943805 = $(`<div id="html_f3287116775c300e867fffd30b943805" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">TEUSAQUILLO</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 218<br>             <b>🐕 Caninos:</b> 181<br>             <b>🐱 Felinos:</b> 36<br>             <b>⚠️ Peligrosos:</b> 10<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_da9ee69272f082f43c2431fa588a7e89.setContent(html_f3287116775c300e867fffd30b943805);
+            
+        
+
+        circle_marker_4014f58c78cd315a1bb8ca11b4f126ee.bindPopup(popup_da9ee69272f082f43c2431fa588a7e89)
+        ;
+
+        
+    
+    
+            var marker_aecc138717b63930a9a083139fb50a5f = L.marker(
+                [4.6417, -74.0875],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_4d03b9cc3b014b9cdf2bdbb32b7bdcb9 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                TEUSAQUILLO\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_aecc138717b63930a9a083139fb50a5f.setIcon(div_icon_4d03b9cc3b014b9cdf2bdbb32b7bdcb9);
+            
+    
+            var circle_marker_d24da11db022ec2667a70d155ca17c2b = L.circleMarker(
+                [4.5748, -74.1329],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.77496610935382, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_6f56d6ad387953c43846b3c4e1a12d9f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_345e0083ef3b996e45fdf87c7c61baba = $(`<div id="html_345e0083ef3b996e45fdf87c7c61baba" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">TUNJUELITO</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 430<br>             <b>🐕 Caninos:</b> 355<br>             <b>🐱 Felinos:</b> 74<br>             <b>⚠️ Peligrosos:</b> 42<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_6f56d6ad387953c43846b3c4e1a12d9f.setContent(html_345e0083ef3b996e45fdf87c7c61baba);
+            
+        
+
+        circle_marker_d24da11db022ec2667a70d155ca17c2b.bindPopup(popup_6f56d6ad387953c43846b3c4e1a12d9f)
+        ;
+
+        
+    
+    
+            var marker_0bba326af1f765a9c61541309fafaca5 = L.marker(
+                [4.5748, -74.1329],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_26f34dc65c2fd105887b54e7776af807 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                TUNJUELITO\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_0bba326af1f765a9c61541309fafaca5.setIcon(div_icon_26f34dc65c2fd105887b54e7776af807);
+            
+    
+            var circle_marker_c7ff6e124c99c4f33dfdbe980dd11a29 = L.circleMarker(
+                [4.6944, -74.0306],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.573881608676004, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_56d39004dbd910b5266a11f0b881d1e0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3d40f0d0a7c55bebbd30c2e295f3dd97 = $(`<div id="html_3d40f0d0a7c55bebbd30c2e295f3dd97" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">USAQUEN</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 784<br>             <b>🐕 Caninos:</b> 662<br>             <b>🐱 Felinos:</b> 122<br>             <b>⚠️ Peligrosos:</b> 50<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_56d39004dbd910b5266a11f0b881d1e0.setContent(html_3d40f0d0a7c55bebbd30c2e295f3dd97);
+            
+        
+
+        circle_marker_c7ff6e124c99c4f33dfdbe980dd11a29.bindPopup(popup_56d39004dbd910b5266a11f0b881d1e0)
+        ;
+
+        
+    
+    
+            var marker_8dd02ddc87cdef1de29039086dd9a1b2 = L.marker(
+                [4.6944, -74.0306],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_73b42626739b3c3b3d0f040113bc53fe = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                USAQUEN\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_8dd02ddc87cdef1de29039086dd9a1b2.setIcon(div_icon_73b42626739b3c3b3d0f040113bc53fe);
+            
+    
+            var circle_marker_9a726c9c3e6d02c62662dc8c2171ec2b = L.circleMarker(
+                [4.4825, -74.1284],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30.727519204699504, "stroke": true, "weight": 2}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+        var popup_b16d521e9f08006e69cd8dbf0fa043d0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2f4f2404c06f0200f961fdf8fa101f04 = $(`<div id="html_2f4f2404c06f0200f961fdf8fa101f04" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial; width: 250px;">             <h4 style="color: #2C3E50; margin-bottom: 10px;">USME</h4>             <hr style="margin: 5px 0;">             <b>📊 Total Animales:</b> 1,533<br>             <b>🐕 Caninos:</b> 1,046<br>             <b>🐱 Felinos:</b> 487<br>             <b>⚠️ Peligrosos:</b> 154<br>             <b>🏆 Predominante:</b> CANINO<br>         </div>         </div>`)[0];
+                popup_b16d521e9f08006e69cd8dbf0fa043d0.setContent(html_2f4f2404c06f0200f961fdf8fa101f04);
+            
+        
+
+        circle_marker_9a726c9c3e6d02c62662dc8c2171ec2b.bindPopup(popup_b16d521e9f08006e69cd8dbf0fa043d0)
+        ;
+
+        
+    
+    
+            var marker_0b8ab54d6b2d1b58feefbfd0b0c4640a = L.marker(
+                [4.4825, -74.1284],
+                {
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+    
+            var div_icon_b9b5cf6fb50f92bcb85937de9493b755 = L.divIcon({
+  "html": "\n                \u003cdiv style=\"font-size: 9px; color: black; font-weight: bold; \n                text-shadow: 1px 1px 2px white; white-space: nowrap;\"\u003e\n                USME\u003c/div\u003e\n            ",
+  "className": "empty",
+});
+        
+    
+                marker_0b8ab54d6b2d1b58feefbfd0b0c4640a.setIcon(div_icon_b9b5cf6fb50f92bcb85937de9493b755);
+            
+    
+            var layer_control_eeed365743898affafda8179f7a2c524_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_6d82565c491a2ace6f6aaef2b74a6473,
+                    "CartoDB Positron" : tile_layer_e317bdb617c3b25114162787ff1332ed,
+                },
+                overlays :  {
+                },
+            };
+            let layer_control_eeed365743898affafda8179f7a2c524 = L.control.layers(
+                layer_control_eeed365743898affafda8179f7a2c524_layers.base_layers,
+                layer_control_eeed365743898affafda8179f7a2c524_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "Full Screen",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_24971873d44e6b23aa7bc4474492074e);
+        
+</script>
+</html>
