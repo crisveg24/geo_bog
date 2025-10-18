@@ -36,10 +36,10 @@ function displayStatistics(data) {
     container.innerHTML = data.map(stat => `
         <div class="stat-card">
             <h3>${stat.metric_name}</h3>
-            <p>Promedio: ${stat.avg_value ? stat.avg_value.toFixed(2) : 'N/A'}</p>
-            <p>Mínimo: ${stat.min_value ? stat.min_value.toFixed(2) : 'N/A'}</p>
-            <p>Máximo: ${stat.max_value ? stat.max_value.toFixed(2) : 'N/A'}</p>
-            <p>Total de registros: ${stat.count}</p>
+            <p><strong>Promedio:</strong> ${stat.avg_value ? Math.round(stat.avg_value).toLocaleString() : 'N/A'}</p>
+            <p><strong>Mínimo:</strong> ${stat.min_value ? Math.round(stat.min_value).toLocaleString() : 'N/A'}</p>
+            <p><strong>Máximo:</strong> ${stat.max_value ? Math.round(stat.max_value).toLocaleString() : 'N/A'}</p>
+            <p><strong>Localidades:</strong> ${stat.count}</p>
         </div>
     `).join('');
 }
@@ -81,17 +81,26 @@ function createDistributionChart(data) {
     
     const trace = {
         labels: data.map(d => d.metric_name),
-        values: data.map(d => d.count),
+        values: data.map(d => d.total_value || d.avg_value * d.count),
         type: 'pie',
         marker: {
             colors: ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b']
-        }
+        },
+        textinfo: 'label+percent',
+        textposition: 'outside',
+        hovertemplate: '<b>%{label}</b><br>Total: %{value:,.0f}<br>Porcentaje: %{percent}<extra></extra>'
     };
     
     const layout = {
         title: 'Distribución de Registros por Métrica',
         plot_bgcolor: '#f9f9f9',
-        paper_bgcolor: '#f9f9f9'
+        paper_bgcolor: '#f9f9f9',
+        showlegend: true,
+        legend: {
+            orientation: 'v',
+            x: 1.1,
+            y: 0.5
+        }
     };
     
     Plotly.newPlot('distribution-chart', [trace], layout, {responsive: true});
@@ -127,20 +136,18 @@ function displayGeographicData(data) {
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>Nombre</th>
+                    <th>Localidad</th>
                     <th>Latitud</th>
                     <th>Longitud</th>
-                    <th>Categoría</th>
-                    <th>Descripción</th>
+                    <th>Información</th>
                 </tr>
             </thead>
             <tbody>
                 ${data.map(item => `
                     <tr>
-                        <td>${item.name || 'N/A'}</td>
+                        <td><strong>${item.name || 'N/A'}</strong></td>
                         <td>${item.latitude ? item.latitude.toFixed(4) : 'N/A'}</td>
                         <td>${item.longitude ? item.longitude.toFixed(4) : 'N/A'}</td>
-                        <td>${item.category || 'N/A'}</td>
                         <td>${item.description || 'N/A'}</td>
                     </tr>
                 `).join('')}

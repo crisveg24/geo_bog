@@ -81,10 +81,22 @@ def get_estadisticas_localidad():
 
 @app.route('/api/geographic-data')
 def get_geographic_data():
-    """Endpoint para obtener datos geográficos"""
+    """Endpoint para obtener datos geográficos - usando datos de animales"""
     try:
         with db_manager:
-            query = "SELECT * FROM geographic_data LIMIT 100"
+            # Usar datos de estadísticas de localidad que contiene coordenadas
+            query = """
+                SELECT 
+                    localidad as name,
+                    latitud as latitude,
+                    longitud as longitude,
+                    'Localidad' as category,
+                    'Total animales: ' || total_animales || 
+                    ' (Caninos: ' || total_caninos || ', Felinos: ' || total_felinos || 
+                    ', Peligrosos: ' || total_peligrosos || ')' as description
+                FROM estadisticas_localidad 
+                ORDER BY total_animales DESC
+            """
             results = db_manager.execute_query(query)
             
             data = [dict(row) for row in results] if results else []
@@ -104,18 +116,46 @@ def get_geographic_data():
 
 @app.route('/api/statistics')
 def get_statistics():
-    """Endpoint para obtener estadísticas"""
+    """Endpoint para obtener estadísticas - usando datos de animales"""
     try:
         with db_manager:
+            # Obtener estadísticas agregadas de las localidades
             query = """
                 SELECT 
-                    metric_name,
-                    AVG(metric_value) as avg_value,
-                    MIN(metric_value) as min_value,
-                    MAX(metric_value) as max_value,
-                    COUNT(*) as count
-                FROM statistics
-                GROUP BY metric_name
+                    'Total Animales' as metric_name,
+                    AVG(total_animales) as avg_value,
+                    MIN(total_animales) as min_value,
+                    MAX(total_animales) as max_value,
+                    COUNT(*) as count,
+                    SUM(total_animales) as total_value
+                FROM estadisticas_localidad
+                UNION ALL
+                SELECT 
+                    'Caninos' as metric_name,
+                    AVG(total_caninos) as avg_value,
+                    MIN(total_caninos) as min_value,
+                    MAX(total_caninos) as max_value,
+                    COUNT(*) as count,
+                    SUM(total_caninos) as total_value
+                FROM estadisticas_localidad
+                UNION ALL
+                SELECT 
+                    'Felinos' as metric_name,
+                    AVG(total_felinos) as avg_value,
+                    MIN(total_felinos) as min_value,
+                    MAX(total_felinos) as max_value,
+                    COUNT(*) as count,
+                    SUM(total_felinos) as total_value
+                FROM estadisticas_localidad
+                UNION ALL
+                SELECT 
+                    'Animales Peligrosos' as metric_name,
+                    AVG(total_peligrosos) as avg_value,
+                    MIN(total_peligrosos) as min_value,
+                    MAX(total_peligrosos) as max_value,
+                    COUNT(*) as count,
+                    SUM(total_peligrosos) as total_value
+                FROM estadisticas_localidad
             """
             results = db_manager.execute_query(query)
             
